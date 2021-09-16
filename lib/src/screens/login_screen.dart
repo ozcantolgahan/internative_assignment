@@ -118,20 +118,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                         authStore.login().then((value) {
                                           if (value) {
                                             snackbar("Login successful", 800);
-                                            postStore
-                                                .getAllUsers(authStore.user!.id!);
+                                            postStore.getAllUsers(
+                                                authStore.user!.id!);
                                             postStore.getAllFriends();
 
                                             Navigator.pushReplacementNamed(
                                                 context, "/home");
                                           } else {
                                             snackbar(
-                                                "Email or Password is wrong", 800);
+                                                "Email or Password is wrong",
+                                                800);
                                           }
                                         });
                                       }
                                     : () {
-                                        snackbar("Fields Cannot Be Empty", 1000);
+                                        snackbar(
+                                            "Fields Cannot Be Empty", 1000);
                                       },
                                 text: "Login",
                               )),

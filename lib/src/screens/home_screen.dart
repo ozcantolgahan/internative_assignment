@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget pageBody(context) {
+
     return SafeArea(
       child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),

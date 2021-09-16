@@ -27,17 +27,6 @@ class _UserScreenState extends State<UserScreen> {
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           iconTheme: IconThemeData(color: Colors.black),
-          actions: [
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  isAdded = true;
-                });
-                postStore.addToFriends(widget.user!.id!, authStore.user!.id!);
-              },
-              icon: Icon(isAdded ? Icons.person : Icons.add),
-            )
-          ],
         ),
         body: pageBody(context),
       );

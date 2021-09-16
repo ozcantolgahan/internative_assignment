@@ -105,7 +105,6 @@ class ApiService {
         },
         body: jsonEncode({"UserId": userId}));
     var user = UserModel.fromJson(json.decode(response.body)["Data"]);
-    print("kaldırıldı" + user.fullName!);
     return user;
   }
 }
