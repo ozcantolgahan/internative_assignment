@@ -22,19 +22,19 @@ class _LandingScreenState extends State<LandingScreen> {
     return Observer(builder: (context) {
       if (authStore.isLoading == true) {
         if (Platform.isIOS)
-          return CupertinoPageScaffold(child: CupertinoActivityIndicator());
+          return CupertinoPageScaffold(
+              child: Center(child: CupertinoActivityIndicator()));
         else
           return Scaffold(
-            body: CircularProgressIndicator(),
+            body: Center(child: CircularProgressIndicator()),
           );
       } else {
         if (authStore.user == null) {
           return LoginScreen();
         } else {
-          postStore.getAllUsers(authStore.user!.id!);
-          postStore.getAllFriends();
-
-
+          postStore
+              .getAllUsers(authStore.user!.id!)
+              .then((value) => postStore.getAllFriends().then((value) {}));
           return HomeScreen();
         }
       }

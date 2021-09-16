@@ -22,15 +22,20 @@ abstract class _PostStore with Store {
 
   @action
   getAllUsers(String myId) async {
-    isLoading = true;
-    prefs = await SharedPreferences.getInstance();
-    var token = prefs!.getString("Token");
-    List<UserModel> data = await repository.getAllUsers(token!, myId);
-    users = ObservableList<UserModel>();
-    for (var i = 0; i < data.length; i++) {
-      users.add(data[i]);
+    try{
+      isLoading = true;
+      prefs = await SharedPreferences.getInstance();
+      var token = prefs!.getString("Token");
+      List<UserModel> data = await repository.getAllUsers(token!, myId);
+      users = ObservableList<UserModel>();
+      for (var i = 0; i < data.length; i++) {
+        users.add(data[i]);
+      }
+      isLoading = false;
+      return true;
+    }catch(e){
+      return false;
     }
-    isLoading = false;
   }
 
   @action
@@ -46,24 +51,30 @@ abstract class _PostStore with Store {
 
   @action
   getAllFriends() async {
-    isLoading = true;
-    prefs = await SharedPreferences.getInstance();
-    friends = ObservableList<UserModel>();
-    var token = prefs!.getString("Token");
-    print(token);
-    var data = await repository.getAllFriends(token!);
-    for (var i = 0; i < data.length; i++) {
-      friends.add(data[i]);
-    }
 
-    for (var i = 0; i < friends.length; i++) {
-      for (var j = 0; j < users.length; j++) {
-        if (friends[i].id == users[j].id) users.remove(users[j]);
+    try{
+      isLoading = true;
+      prefs = await SharedPreferences.getInstance();
+      friends = ObservableList<UserModel>();
+      var token = prefs!.getString("Token");
+      print(token);
+      var data = await repository.getAllFriends(token!);
+      for (var i = 0; i < data.length; i++) {
+        friends.add(data[i]);
       }
-    }
 
-    print(users);
-    isLoading = false;
+      for (var i = 0; i < friends.length; i++) {
+        for (var j = 0; j < users.length; j++) {
+          if (friends[i].id == users[j].id) users.remove(users[j]);
+        }
+      }
+
+      print(users);
+      isLoading = false;
+      return true;
+    }catch(e){
+      return false;
+    }
   }
 
   @action

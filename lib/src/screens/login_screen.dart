@@ -118,9 +118,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         authStore.login().then((value) {
                                           if (value) {
                                             snackbar("Login successful", 800);
-                                            postStore.getAllUsers(
-                                                authStore.user!.id!);
-                                            postStore.getAllFriends();
+                                            postStore
+                                                .getAllUsers(
+                                                    authStore.user!.id!)
+                                                .then((value) => postStore
+                                                    .getAllFriends()
+                                                    .then((value) {}));
 
                                             Navigator.pushReplacementNamed(
                                                 context, "/home");
